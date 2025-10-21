@@ -86,3 +86,11 @@ body {
   color: white !important;
   transform: scale(1.1);
 }
+
+.loader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  color: rgba(43, 131, 202, 0.9);
+}

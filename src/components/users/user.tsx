@@ -3,15 +3,17 @@ import "./user.css";
 import { User } from "../../users/entity";
 import UserService from "../../users/service/client";
 import { localStore } from "../../core/service/storage";
-import { IconButton } from "@mui/material";
+import { CircularProgress, IconButton } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 export function UserProfileCard() {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
       await getUser();
+      setLoading(false);
     })();
   }, []);
 
@@ -24,11 +26,7 @@ export function UserProfileCard() {
           let user = new User();
           user = JSON.parse(userDatum);
           setUser(user);
-        } else {
-          setUser(null);
         }
-      } else {
-        setUser(null);
       }
     } catch (error) {
       console.log(error);
@@ -37,35 +35,44 @@ export function UserProfileCard() {
 
   return (
     <div className="container">
-      <div
-        className="user-card"
-        style={{
-          backgroundImage: `url(${user?.profilePic})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <img
-          src={user?.profilePic}
-          alt={`${user?.firstName}'s profile`}
-          className="profile-pic"
-        />
-        <div className="user-info">
-          <h2 className="user-name">
-            {user?.honorifics}.{user?.firstName} {user?.lastName}
-          </h2>
-          <p className="user-email">{user?.email}</p>
+      {loading ? (
+        <div className="loader">
+          <CircularProgress size={40} />
+          <h1>Loading...</h1>
         </div>
-        <IconButton
-          color="primary"
-          className="refresh-btn"
-          onClick={async () => {
-            await getUser();
+      ) : (
+        <div
+          className="user-card"
+          style={{
+            backgroundImage: `url(${user?.profilePic})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
-          <RefreshIcon />
-        </IconButton>
-      </div>
+          <img
+            src={user?.profilePic}
+            alt={`${user?.firstName}'s profile`}
+            className="profile-pic"
+          />
+          <div className="user-info">
+            <h2 className="user-name">
+              {user?.honorifics}.{user?.firstName} {user?.lastName}
+            </h2>
+            <p className="user-email">{user?.email}</p>
+          </div>
+          {user && (
+            <IconButton
+              color="primary"
+              className="refresh-btn"
+              onClick={async () => {
+                await getUser();
+              }}
+            >
+              <RefreshIcon />
+            </IconButton>
+          )}
+        </div>
+      )}
     </div>
   );
 }
