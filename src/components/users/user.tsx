@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { User } from "@/users/entity";
 import UserService from "@/users/service/client";
-import { localStore } from "@/core/service/storage";
 import { CircularProgress, IconButton } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { UserManager } from "@/users/service/data";
+import { useNavigate } from "react-router-dom";
+import { navigateToFallback } from "@/utils";
 
 export function UserProfileCard() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUser();
@@ -17,14 +20,16 @@ export function UserProfileCard() {
     try {
       let userInfo = await new UserService().getUser();
       if (userInfo) {
-        let userDatum = localStore.getItem("user");
+        let userDatum: User = await new UserManager().getUserById(userInfo.id);
         if (userDatum) {
-          let user: User = JSON.parse(userDatum);
-          setUser(user);
+          setUser(userDatum);
+        } else {
+          navigateToFallback();
         }
       }
     } catch (error) {
       console.error(error);
+      navigateToFallback();
     } finally {
       setLoading(false);
     }
