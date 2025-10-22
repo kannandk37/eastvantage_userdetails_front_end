@@ -7,8 +7,8 @@ body {
 }
 
 .welcome-card {
-  width: 1900px;
-  height: 850px;
+  width: 1700px;
+  height: 750px;
   border-radius: 25px;
   position: relative;
   display: flex;
