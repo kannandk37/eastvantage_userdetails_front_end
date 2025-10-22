@@ -31,6 +31,6 @@ export function userOfUserResponseDatum(userInfo: any): User {
 
 export function usersOfUsersResponseDatum(userInfos: any[]): User[] {
     let users: User[] = [];
-    userInfos.forEach((user: any) => user.push(userOfUserResponseDatum(user)));
+    userInfos?.forEach((user: any) => user.push(userOfUserResponseDatum(user)));
     return users;
 }

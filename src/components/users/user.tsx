@@ -4,7 +4,6 @@ import UserService from "@/users/service/client";
 import { CircularProgress, IconButton } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { UserManager } from "@/users/service/data";
-import { useNavigate } from "react-router-dom";
 import { navigateToFallback } from "@/utils";
 
 export function UserProfileCard() {
