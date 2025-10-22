@@ -1,5 +1,5 @@
 import { UserProfileCard } from "@/components/users/user";
-import FallbackPage from "@/core/service/error";
+import FallbackPage from "@/core/service/error/fallback";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Welcome } from "@/components/welcome";
 

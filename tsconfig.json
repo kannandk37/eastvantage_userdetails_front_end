@@ -1,8 +1,16 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "types": ["node"],
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "types": ["node"],
+    "skipLibCheck": true,
+    "moduleResolution": "Node",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -10,23 +18,14 @@
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"]
     }
   },
   "include": ["src", "global.d.ts"],
-  "exclude": ["node_modules", "**/*.css"]
+  "exclude": ["node_modules"]
 }

@@ -10,7 +10,6 @@ import { navigateToFallback } from "@/utils";
 export function UserProfileCard() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getUser();
