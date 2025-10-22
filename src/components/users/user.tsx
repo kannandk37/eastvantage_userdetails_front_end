@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import "./user.css";
-import { User } from "../../users/entity";
-import UserService from "../../users/service/client";
-import { localStore } from "../../core/service/storage";
+import { User } from "@/users/entity";
+import UserService from "@/users/service/client";
+import { localStore } from "@/core/service/storage";
 import { CircularProgress, IconButton } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
@@ -11,10 +10,7 @@ export function UserProfileCard() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    (async () => {
-      await getUser();
-      setLoading(false);
-    })();
+    getUser();
   }, []);
 
   const getUser = async () => {
@@ -23,13 +19,14 @@ export function UserProfileCard() {
       if (userInfo) {
         let userDatum = localStore.getItem("user");
         if (userDatum) {
-          let user = new User();
-          user = JSON.parse(userDatum);
+          let user: User = JSON.parse(userDatum);
           setUser(user);
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,8 +34,8 @@ export function UserProfileCard() {
     <div className="container">
       {loading ? (
         <div className="loader">
-          <CircularProgress size={40} />
-          <h1>Loading...</h1>
+          <CircularProgress sx={{ color: "rgb(194, 142, 243)" }} size={40} />
+          <h1>Loading User Details...</h1>
         </div>
       ) : (
         <div
@@ -56,16 +53,15 @@ export function UserProfileCard() {
           />
           <div className="user-info">
             <h2 className="user-name">
-              {user?.honorifics}.{user?.firstName} {user?.lastName}
+              {user?.honorifics}. {user?.firstName} {user?.lastName}
             </h2>
             <p className="user-email">{user?.email}</p>
           </div>
           {user && (
             <IconButton
-              color="primary"
               className="refresh-btn"
-              onClick={async () => {
-                await getUser();
+              onClick={() => {
+                getUser();
               }}
             >
               <RefreshIcon />

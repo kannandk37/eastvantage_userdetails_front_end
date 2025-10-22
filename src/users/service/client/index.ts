@@ -1,7 +1,7 @@
-import axiosinstance from "../../../core/service/axios";
-import { localStore } from "../../../core/service/storage";
-import { User } from "../../entity";
-import { userOfUserResponseDatum } from "../data";
+import axiosinstance from "@/core/service/axios";
+import { localStore } from "@/core/service/storage";
+import { User } from "@/users/entity";
+import { userOfUserResponseDatum } from "@/users/service/data";
 
 export default class UserService {
     getUser() {

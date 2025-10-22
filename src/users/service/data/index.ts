@@ -1,4 +1,4 @@
-import { User } from "../../../users/entity";
+import { User } from "@/users/entity";
 
 export function userOfUserResponseDatum(userInfo: any): User {
     let user = new User();

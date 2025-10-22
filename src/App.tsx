@@ -1,23 +1,16 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { UserProfileCard } from "./components/users/user";
-
-const theme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#1976d2",
-    },
-    secondary: {
-      main: "#dc004e",
-    },
-  },
-});
+import { UserProfileCard } from "@/components/users/user";
+import FallbackPage from "@/core/service/error";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Welcome } from "@/components/welcome";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <UserProfileCard />
-    </ThemeProvider>
+    <Routes>
+      <Route path="/" element={<Navigate to="/welcome" replace />} />
+      <Route path="/welcome" element={<Welcome />} />
+      <Route path="/user" element={<UserProfileCard />} />
+      <Route path="/fallback" element={<FallbackPage />} />
+    </Routes>
   );
 }
 
